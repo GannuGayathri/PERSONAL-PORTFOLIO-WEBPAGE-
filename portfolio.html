@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gannu Sai Gayathri | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    :root {
+      --main-bg: #181e2a;
+      --card-bg: #212632;
+      --accent: #00ffe7;
+      --accent-deep: #11a9d9;
+      --text-main: #fff;
+      --text-muted: #b7bdd0;
+      --radius: 22px;
+      --nav-bg: transparent;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--main-bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .portfolio-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 2.8rem 2.5rem 2.8rem 3.5rem;
+      max-width: 970px;
+      width: 97vw;
+      min-height: 480px;
+      display: flex;
+      box-shadow: 0 8px 60px 0 #00ffe73a;
+      align-items: center;
+      position: relative;
+      margin-top: 4vh;
+      transition: all 0.4s;
+    }
+    .portfolio-title {
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+      font-weight: 700;
+      font-size: 1.15em;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      opacity: 0.8;
+      z-index: 2;
+    }
+    nav {
+      position: absolute;
+      top: 1.2rem;
+      right: 2rem;
+      display: flex;
+      gap: 2.2em;
+      z-index: 2;
+    }
+    nav a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.04em;
+      transition: color 0.18s, background 0.18s;
+      padding: 0.2em 0.7em;
+      border-radius: 6px;
+    }
+    nav a.active, nav a:hover {
+      background: var(--accent);
+      color: #181e2a;
+    }
+    .page {
+      display: none;
+      width: 100%;
+      min-height: 420px;
+      animation: fadeIn 0.7s;
+    }
+    .page.active {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5em;
+    }
+    /* Home Page */
+    .home-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 320px;
+    }
+    .greeting {
+      margin-top: 2.7em;
+      font-size: 1.1em;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .my-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.7em;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-main);
+      letter-spacing: 1.2px;
+    }
+    .role {
+      font-size: 1.35em;
+      font-weight: 600;
+      margin: 0.6em 0 0.7em 0;
+      color: var(--text-main);
+    }
+    .role .typed {
+      color: var(--accent);
+      border-right: 2px solid var(--accent);
+      padding-right: 0.1em;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .desc {
+      color: var(--text-muted);
+      margin-bottom: 2.1em;
+      max-width: 370px;
+      font-size: 1.06em;
+      line-height: 1.7;
+    }
+    .socials {
+      display: flex;
+      gap: 1.3em;
+      margin-bottom: 2em;
+    }
+    .socials a {
+      font-size: 1.37em;
+      color: var(--accent);
+      transition: color 0.17s, transform 0.14s;
+    }
+    .socials a:hover {
+      color: var(--accent-deep);
+      transform: scale(1.18);
+    }
+    .cv-btn {
+      background: var(--accent);
+      color: #181e2a;
+      font-weight: 700;
+      border: none;
+      border-radius: 34px;
+      padding: 0.55em 2.2em;
+      font-size: 1.05em;
+      cursor: pointer;
+      margin-top: 0.3em;
+      box-shadow: 0 0 18px 0 var(--accent);
+      transition: background 0.17s, color 0.16s, box-shadow 0.17s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cv-btn:hover {
+      background: var(--accent-deep);
+      color: #fff;
+      box-shadow: 0 0 22px 4px #00ffe799;
+    }
+    .animated-svg {
+      width: 290px;
+      height: 320px;
+      min-width: 210px;
+      margin-left: 2.5vw;
+      margin-right: 0.5vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* About Page */
+    .about-content {
+      color: var(--text-main);
+      flex: 1;
+      font-size: 1.14em;
+      padding-right: 1.2em;
+    }
+    .about-content h2 {
+      color: var(--accent);
+      font-size: 2em;
+      margin-bottom: 0.7em;
+    }
+    .about-content ul {
+      margin: 1em 0 0 1.2em;
+      color: var(--text-muted);
+    }
+    /* Skills Page */
+    .skills-content {
+      flex: 1;
+      color: var(--text-main);
+      padding-right: 1.2em;
+    }
+    .skills-content h2 {
+      color: var(--accent);
+      font-size: 2em;
+      margin-bottom: 0.7em;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.3em;
+      margin-top: 1.3em;
+    }
+    .skill-item {
+      background: #242c3c;
+      border-radius: 9px;
+      padding: 0.7em 1.3em;
+      font-weight: 600;
+      color: var(--accent);
+      box-shadow: 0 2px 8px #11a9d91a;
+      font-size: 1.09em;
+      margin-bottom: 0.5em;
+    }
+    /* Portfolio Page */
+    .portfolio-content {
+      flex: 1;
+      color: var(--text-main);
+      padding-right: 1.2em;
+    }
+    .portfolio-content h2 {
+      color: var(--accent);
+      font-size: 2em;
+      margin-bottom: 0.7em;
+    }
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4em;
+      margin-top: 1em;
+    }
+    .project-card {
+      background: #232e49;
+      padding: 1.1em 1.2em;
+      border-radius: 13px;
+      box-shadow: 0 2px 12px #00ffe71a;
+      border: 1.3px solid #2e3752;
+    }
+    .project-card h3 {
+      color: var(--accent);
+      font-size: 1.14em;
+      margin-bottom: 0.18em;
+    }
+    .project-card p {
+      color: var(--text-muted);
+      margin-bottom: 0.1em;
+      font-size: 1em;
+    }
+    .project-card a {
+      color: var(--accent);
+      font-size: 0.97em;
+      text-decoration: none;
+      margin-top: 0.3em;
+      display: inline-block;
+    }
+    .project-card a:hover { text-decoration: underline; }
+    /* Contact Page */
+    .contact-content {
+      flex: 1;
+      color: var(--text-main);
+      padding-right: 1.2em;
+    }
+    .contact-content h2 {
+      color: var(--accent);
+      font-size: 2em;
+      margin-bottom: 0.7em;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1.2em;
+      margin-top: 1.2em;
+      font-size: 1.13em;
+    }
+    .contact-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-block;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      margin-right: 1em;
+    }
+    .contact-links a:hover {
+      color: var(--accent-deep);
+      border-bottom: 2px solid var(--accent-deep);
+    }
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .portfolio-card { flex-direction: column; padding: 2.7rem 1.3rem;}
+      .animated-svg { margin-left: 0; margin-top: 2.5em;}
+      nav { position: static; margin-top: 0.75em;}
+      .portfolio-title { position: static; margin-bottom: 0.8em;}
+      .page.active { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .portfolio-card { flex-direction: column; padding: 1.3rem 0.2rem;}
+      nav {gap: 1.1em;}
+      .my-name {font-size: 2em;}
+      .role {font-size: 1em;}
+      .animated-svg {
+        width: 180px;
+        height: 180px;
+        min-width: 110px;
+        margin-top: 2em;
+      }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="portfolio-card">
+      <div class="portfolio-title">Portfolio.</div>
+      <nav>
+        <a href="#" class="active" data-page="home">Home</a>
+        <a href="#" data-page="about">About</a>
+        <a href="#" data-page="skills">Skills</a>
+        <a href="#" data-page="portfolio">Portfolio</a>
+        <a href="#" data-page="contact">Contact</a>
+      </nav>
+      <!-- PAGES -->
+      <div class="page home-page active" id="home">
+        <div class="home-text">
+          <div class="greeting">Hello, It's Me</div>
+          <div class="my-name">Gannu Sai Gayathri</div>
+          <div class="role">And I'm a <span class="typed" id="typed-role"></span></div>
+          <div class="desc">
+            Welcome to my portfolio! I'm passionate about modern web development, building responsive and visually appealing digital experiences. Let's connect and create something amazing!
+          </div>
+          <div class="socials">
+            <a href="https://github.com/GannuGayathri" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+          <a class="cv-btn" href="#" download>Download CV</a>
+        </div>
+        <div class="animated-svg">
+          <!-- Animated SVG illustration (a simple developer at desk) -->
+          <svg width="100%" height="100%" viewBox="0 0 270 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="135" cy="290" rx="95" ry="22" fill="#00ffe7" opacity="0.18"/>
+            <g>
+              <rect x="80" y="140" width="110" height="50" rx="13" fill="#222a38" stroke="#00ffe7" stroke-width="2"/>
+              <rect x="100" y="170" width="70" height="17" rx="5" fill="#00ffe7" opacity="0.25"/>
+              <rect x="105" y="180" width="60" height="7" rx="3.5" fill="#00ffe7" opacity="0.58"/>
+              <ellipse cx="135" cy="120" rx="35" ry="40" fill="#6ef5e2"/>
+              <ellipse cx="135" cy="120" rx="30" ry="36" fill="#fff" opacity="0.15"/>
+              <!-- Head -->
+              <ellipse cx="135" cy="90" rx="19" ry="20" fill="#3d485e"/>
+              <ellipse cx="135" cy="96" rx="9" ry="5" fill="#181e2a" opacity="0.20"/>
+              <!-- Body (shirt) -->
+              <rect x="120" y="110" width="30" height="40" rx="15" fill="#2e3951"/>
+              <!-- Arms -->
+              <rect x="110" y="150" width="15" height="30" rx="7" fill="#3d485e"/>
+              <rect x="145" y="150" width="15" height="30" rx="7" fill="#3d485e"/>
+              <!-- Desk -->
+              <rect x="70" y="195" width="130" height="18" rx="7" fill="#222a38" stroke="#00ffe7" stroke-width="1.5"/>
+              <rect x="122" y="213" width="26" height="36" rx="5" fill="#2e3951"/>
+              <!-- Laptop -->
+              <rect x="115" y="185" width="40" height="16" rx="3" fill="#e4f7f8" stroke="#00ffe7" stroke-width="1"/>
+              <rect x="127" y="187" width="18" height="8" rx="2" fill="#00ffe7" opacity="0.29"/>
+              <!-- Animation: blinking screen -->
+              <rect id="laptop-glow" x="118" y="187.5" width="34" height="5" rx="2.5" fill="#00ffe7" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <!-- About Page -->
+      <div class="page about-page" id="about">
+        <div class="about-content">
+          <h2>About Me</h2>
+          <p>
+            Hi! I'm <b>Gannu Sai Gayathri</b>, a passionate software developer based in India. I specialize in creating robust, user-friendly web applications that blend design with functionality.
+          </p>
+          <ul>
+            <li>🌱 Currently exploring modern frontend frameworks and UI/UX best practices.</li>
+            <li>🎓 3rd year B.Tech student in Computer Science (Data Science).</li>
+            <li>🚀 Love solving real-world problems through code.</li>
+            <li>🤝 Open to collaborations and exciting opportunities!</li>
+          </ul>
+        </div>
+        <div class="animated-svg">
+          <!-- Cute bouncing circle animation -->
+          <svg width="170" height="200">
+            <circle id="about-ball" cx="85" cy="90" r="28" fill="#00ffe7" opacity="0.77"/>
+            <ellipse cx="85" cy="150" rx="40" ry="8" fill="#00ffe7" opacity="0.15"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Skills Page -->
+      <div class="page skills-page" id="skills">
+        <div class="skills-content">
+          <h2>Skills</h2>
+          <div class="skills-list">
+            <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+            <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+            <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="fab fa-react"></i> React.js</div>
+            <div class="skill-item"><i class="fab fa-git-alt"></i> Git</div>
+            <div class="skill-item"><i class="fab fa-node-js"></i> Node.js</div>
+            <div class="skill-item"><i class="fas fa-database"></i> MongoDB</div>
+            <div class="skill-item"><i class="fab fa-python"></i> Python</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Problem Solving</div>
+          </div>
+        </div>
+        <div class="animated-svg">
+          <!-- Animated spinning gear SVG -->
+          <svg width="130" height="130" viewBox="0 0 130 130">
+            <g id="gear">
+              <circle cx="65" cy="65" r="32" fill="#00ffe7" opacity="0.12"/>
+              <circle cx="65" cy="65" r="20" fill="#00ffe7" opacity="0.4"/>
+              <g stroke="#00ffe7" stroke-width="6">
+                <line x1="65" y1="15" x2="65" y2="0"/>
+                <line x1="65" y1="115" x2="65" y2="130"/>
+                <line x1="15" y1="65" x2="0" y2="65"/>
+                <line x1="115" y1="65" x2="130" y2="65"/>
+                <line x1="30" y1="30" x2="18" y2="18"/>
+                <line x1="100" y1="100" x2="112" y2="112"/>
+                <line x1="100" y1="30" x2="112" y2="18"/>
+                <line x1="30" y1="100" x2="18" y2="112"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <!-- Portfolio Page -->
+      <div class="page portfolio-page" id="portfolio">
+        <div class="portfolio-content">
+          <h2>Portfolio</h2>
+          <div class="projects-list">
+            <div class="project-card">
+              <h3>India College Navigator</h3>
+              <p>
+                A smart web app helping students discover and compare Indian colleges. Features personalized recommendations and powerful filtering.
+              </p>
+              <a href="https://github.com/GannuGayathri/indiacollege-navigator-recommend" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+            </div>
+            <div class="project-card">
+              <h3>Portfolio Pro</h3>
+              <p>
+                An open-source template for developers to create stunning portfolios in minutes. Responsive, modern, and easy to customize.
+              </p>
+              <a href="#"><i class="fab fa-github"></i> View on GitHub</a>
+            </div>
+            <div class="project-card">
+              <h3>Weatherly</h3>
+              <p>
+                A beautiful weather app with animated backgrounds, real-time forecasts, and location search.
+              </p>
+              <a href="#"><i class="fab fa-github"></i> View on GitHub</a>
+            </div>
+          </div>
+        </div>
+        <div class="animated-svg">
+          <!-- Animated cloud -->
+          <svg width="170" height="120">
+            <g id="cloud-group">
+              <ellipse cx="90" cy="70" rx="50" ry="22" fill="#00ffe7" opacity="0.18"/>
+              <ellipse id="cloud1" cx="60" cy="62" rx="30" ry="18" fill="#00ffe7" opacity="0.4"/>
+              <ellipse cx="90" cy="65" rx="23" ry="16" fill="#00ffe7" opacity="0.27"/>
+              <ellipse id="cloud2" cx="110" cy="60" rx="19" ry="12" fill="#00ffe7" opacity="0.19"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <!-- Contact Page -->
+      <div class="page contact-page" id="contact">
+        <div class="contact-content">
+          <h2>Contact Me</h2>
+          <p>
+            I’m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.<br><br>
+            <strong>Email:</strong> <a style="color:var(--accent);" href="mailto:gayathri456@gmail.com">gayathri456@gmail.com</a>
+          </p>
+          <div class="contact-links">
+            <a href="https://github.com/GannuGayathri" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+          </div>
+        </div>
+        <div class="animated-svg">
+          <!-- Animated envelope -->
+          <svg width="120" height="120">
+            <rect x="20" y="40" width="80" height="40" rx="8" fill="#00ffe7" opacity="0.25"/>
+            <polygon id="envelope-flap" points="20,40 60,70 100,40" fill="#00ffe7" opacity="0.43"/>
+            <rect x="35" y="60" width="50" height="8" rx="3" fill="#00ffe7" opacity="0.6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Typing Animation + Navigation + SVG Animations Script -->
+  <script>
+    // Typewriter effect for the role
+    const roles = [
+      "Frontend Developer",
+      "Web Enthusiast",
+      "UI/UX Learner",
+      "React.js Explorer"
+    ];
+    let currentRole=0, currentChar=0, isDeleting=false;
+    const typedEl=document.getElementById('typed-role');
+    function typeRole() {
+      const role=roles[currentRole];
+      if (!isDeleting) {
+        typedEl.textContent = role.substring(0, currentChar+1);
+        currentChar++;
+        if(currentChar === role.length) {
+          isDeleting = true;
+          setTimeout(typeRole, 1200);
+        } else {
+          setTimeout(typeRole, 90);
+        }
+      } else {
+        typedEl.textContent = role.substring(0, currentChar-1);
+        currentChar--;
+        if(currentChar === 0) {
+          isDeleting = false;
+          currentRole = (currentRole+1) % roles.length;
+          setTimeout(typeRole, 400);
+        } else {
+          setTimeout(typeRole, 35);
+        }
+      }
+    }
+    // SPA navigation
+    const navLinks = document.querySelectorAll('nav a');
+    const pages = document.querySelectorAll('.page');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        pages.forEach(page => page.classList.remove('active'));
+        const pageId = this.getAttribute('data-page');
+        document.getElementById(pageId).classList.add('active');
+      });
+    });
+    window.onload = function() {
+      typeRole();
+      animateSVGs();
+    };
+    // SVG Animations
+    function animateSVGs() {
+      // About page: bounce ball
+      const ball = document.getElementById('about-ball');
+      if(ball){
+        let dir = 1, y = 90;
+        setInterval(() => {
+          y += dir*2;
+          if(y > 110) dir = -1;
+          if(y < 80) dir = 1;
+          ball.setAttribute('cy', y);
+        }, 35);
+      }
+      // Skills page: spin gear
+      const gear = document.getElementById('gear');
+      if(gear){
+        let angle = 0;
+        setInterval(() => {
+          angle = (angle+5)%360;
+          gear.setAttribute('transform', `rotate(${angle} 65 65)`);
+        }, 50);
+      }
+      // Portfolio page: cloud move
+      const cloud1 = document.getElementById('cloud1');
+      const cloud2 = document.getElementById('cloud2');
+      if(cloud1 && cloud2){
+        let dx = 0, sign = 1;
+        setInterval(()=>{
+          dx += sign*0.5;
+          if(dx > 8) sign = -1;
+          if(dx < -8) sign = 1;
+          cloud1.setAttribute('cx', 60+dx);
+          cloud2.setAttribute('cx', 110-dx);
+        },45);
+      }
+      // Contact page: envelope flap
+      const flap = document.getElementById('envelope-flap');
+      if(flap){
+        let open = true;
+        setInterval(()=>{
+          if(open){
+            flap.setAttribute('points','20,40 60,55 100,40');
+          } else {
+            flap.setAttribute('points','20,40 60,70 100,40');
+          }
+          open = !open;
+        }, 700);
+      }
+      // Home page: laptop glow
+      const laptopGlow = document.getElementById('laptop-glow');
+      if(laptopGlow){
+        let op = 0.5, dir = 1;
+        setInterval(()=>{
+          op += dir*0.02;
+          if(op > 0.8) dir = -1;
+          if(op < 0.2) dir = 1;
+          laptopGlow.setAttribute('opacity',op.toFixed(2));
+        },41);
+      }
+    }
+  </script>
+</body>
+</html>
